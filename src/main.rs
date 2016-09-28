@@ -27,7 +27,7 @@ impl Grid {
     fn new() -> Grid {
         return Grid {inner: [[Cell::new(); GRID_SIZE]; GRID_SIZE]}
     }
-    
+
     fn print_all_cells(&self){
         for i in 0..GRID_SIZE{
             for j in 0..GRID_SIZE{
@@ -48,7 +48,7 @@ impl Grid {
                 self.inner[i][j].x=i as i32;
                 self.inner[i][j].y=j as i32;
             }
-        }  
+        }
     }
 }
 
