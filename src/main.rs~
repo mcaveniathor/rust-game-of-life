@@ -102,9 +102,9 @@ fn main() {
     print!("{}[2J", 27 as char);
     for _ in 0..GENERATIONS{
         grid.print_all_cells();
-        print!("{}[2J]", 27 as char);
         grid.update();
         thread::sleep(Duration::from_millis(10));
+        print!("{}[2J", 27 as char);
     }
 }
 
