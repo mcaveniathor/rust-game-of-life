@@ -1,7 +1,9 @@
 extern crate rand;
+//extern crate pancurses;
 use std::thread;
 use std::time::Duration;
 use rand::Rng;
+//use pancurses::*;
 const GRID_SIZE: usize = 32;
 const GENERATIONS: i32 = 1000;
 //allow Cells to be copied, eg. into an array or as a parameter
@@ -95,14 +97,14 @@ impl Grid {
 
 
 
-fn main() {
+fn main() {        
     let mut grid = Grid::new();
     grid.number_all_cells();;
     grid.set_all_cells_random();
     print!("{}[2J", 27 as char);
     for _ in 0..GENERATIONS{
         grid.print_all_cells();
-        print!("{}[2J]", 27 as char);
+        print!("{}[2J", 27 as char);
         grid.update();
         thread::sleep(Duration::from_millis(10));
     }
