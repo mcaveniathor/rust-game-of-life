@@ -6,6 +6,7 @@ use rand::Rng;
 //use pancurses::*;
 const GRID_SIZE: usize = 32;
 const GENERATIONS: i32 = 1000;
+const PROBABILITY: f32 = 0.10;
 //allow Cells to be copied, eg. into an array or as a parameter
 #[derive(Copy, Clone)]
 struct  Cell { 
@@ -34,7 +35,12 @@ impl Grid {
         let mut rng = rand::thread_rng();
         for i in 1..GRID_SIZE{
             for j in 1..GRID_SIZE{
-                self.inner[i][j].alive=rng.gen::<bool>() as u8;
+                    if (rng.gen::<f32>() > 1.0 - PROBABILITY){ 
+                        self.inner[i][j].alive=1;
+                    }
+                    else{
+                        self.inner[i][j].alive=0;
+                    }
             }
         }
     }
@@ -102,11 +108,14 @@ fn main() {
     grid.number_all_cells();;
     grid.set_all_cells_random();
     print!("{}[2J", 27 as char);
-    for _ in 0..GENERATIONS{
+    for i in 0..GENERATIONS{
         grid.print_all_cells();
         print!("{}[2J", 27 as char);
         grid.update();
-        thread::sleep(Duration::from_millis(10));
+        if i==GENERATIONS{
+            grid.print_all_cells();
+        }
+        thread::sleep(Duration::from_millis(100));
     }
 }
 
