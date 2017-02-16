@@ -4,9 +4,10 @@ use std::thread;
 use std::time::Duration;
 use rand::Rng;
 //use pancurses::*;
+const DELAY: f32 = 0.1;
 const GRID_SIZE: usize = 32;
 const GENERATIONS: i32 = 1000;
-const PROBABILITY: f32 = 0.10;
+const PROBABILITY: f32 = 0.15;
 //allow Cells to be copied, eg. into an array or as a parameter
 #[derive(Copy, Clone)]
 struct  Cell { 
@@ -35,7 +36,7 @@ impl Grid {
         let mut rng = rand::thread_rng();
         for i in 1..GRID_SIZE{
             for j in 1..GRID_SIZE{
-                    if (rng.gen::<f32>() > 1.0 - PROBABILITY){ 
+                    if rng.gen::<f32>() > 1.0 - PROBABILITY{ 
                         self.inner[i][j].alive=1;
                     }
                     else{
@@ -52,7 +53,7 @@ impl Grid {
                 }
                 else{
                     if self.inner[i][j].alive == 1{
-                        print!("1");
+                       print!("1");
                     }
                     else{
                         print!("0");
@@ -102,7 +103,6 @@ impl Grid {
 }
 
 
-
 fn main() {        
     let mut grid = Grid::new();
     grid.number_all_cells();;
@@ -115,7 +115,7 @@ fn main() {
         if i==GENERATIONS{
             grid.print_all_cells();
         }
-        thread::sleep(Duration::from_millis(100));
+        thread::sleep(Duration::from_millis((DELAY*1000.0) as u64));
     }
 }
 
